@@ -12,7 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Schema(description = "公共返回对象")
-public class R<T> implements Serializable {
+public class JsonResult<T> implements Serializable {
 
     @Serial
     private static final long serialVersionUID = -6673028348147208714L;
@@ -26,20 +26,20 @@ public class R<T> implements Serializable {
     @Schema(description = "数据")
     private T data;
 
-    public static R<Object> success() {
-        return new R<>(true, "success", null);
+    public static JsonResult<Void> success() {
+        return new JsonResult<>(true, "success", null);
     }
 
-    public static R<Void> success(String msg) {
-        return new R<>(true, msg, null);
+    public static JsonResult<Void> success(String msg) {
+        return new JsonResult<>(true, msg, null);
     }
 
-    public static <T> R<T> success(T data) {
-        return new R<>(true, "success", data);
+    public static <T> JsonResult<T> success(T data) {
+        return new JsonResult<>(true, "success", data);
     }
 
-    public static R<Void> fail(String msg) {
-        return new R<>(false, msg, null);
+    public static JsonResult<Void> fail(String msg) {
+        return new JsonResult<>(false, msg, null);
     }
 
 }

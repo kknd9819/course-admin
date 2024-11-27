@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>课程管理</title>
+    <link th:href="@{/layui-v2.9.20/layui/css/layui.css}" rel="stylesheet">
+</head>
+<body>
+
+<script th:src="@{/layui-v2.9.20/layui/layui.js}"></script>
+<script>
+    // Usage
+    layui.use(function(){
+        var layer = layui.layer;
+        // Welcome
+        layer.msg('Hello World', {icon: 6});
+    });
+</script>
+</body>
+</html>

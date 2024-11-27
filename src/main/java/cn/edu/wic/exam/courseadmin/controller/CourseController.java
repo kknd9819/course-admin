@@ -1,7 +1,8 @@
 package cn.edu.wic.exam.courseadmin.controller;
 
 import cn.edu.wic.exam.courseadmin.domain.dto.CourseDTO;
-import cn.edu.wic.exam.courseadmin.util.R;
+import cn.edu.wic.exam.courseadmin.service.CourseService;
+import cn.edu.wic.exam.courseadmin.util.JsonResult;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -20,14 +21,16 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class CourseController {
 
+    private final CourseService courseService;
+
     @Operation(summary = "分页获取课程")
     @Parameters({
-            @Parameter(name = "pageNumber", description = "从第几页开始", in = ParameterIn.QUERY),
-            @Parameter(name = "pageSize", description = "一共显示几条数据", in = ParameterIn.QUERY)
+        @Parameter(name = "pageNumber", description = "从第几页开始", required = true, in = ParameterIn.QUERY),
+        @Parameter(name = "pageSize", description = "一共显示几条数据", required = true, in = ParameterIn.QUERY)
     })
     @GetMapping
-    public R<IPage<CourseDTO>> getPage(@RequestParam(value = "pageNumber", defaultValue = "1") Integer pageNumber,
-                                       @RequestParam(value = "pageSize", defaultValue = "20") Integer pageSize) {
-        return R.success();
+    public JsonResult<IPage<CourseDTO>> getPage(@RequestParam(value = "current", defaultValue = "1") Integer current,
+                                                @RequestParam(value = "size", defaultValue = "20") Integer size) {
+        return JsonResult.success(courseService.getPage(current, size));
     }
 }
