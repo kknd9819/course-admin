@@ -28,6 +28,6 @@ public class CourseController {
     @GetMapping
     public R<IPage<CourseDTO>> getPage(@RequestParam(value = "pageNumber", defaultValue = "1") Integer pageNumber,
                                        @RequestParam(value = "pageSize", defaultValue = "20") Integer pageSize) {
-
+        return R.success();
     }
 }

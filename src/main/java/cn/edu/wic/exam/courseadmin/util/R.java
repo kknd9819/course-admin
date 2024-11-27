@@ -26,7 +26,7 @@ public class R<T> implements Serializable {
     @Schema(description = "数据")
     private T data;
 
-    public static R<Void> success() {
+    public static R<Object> success() {
         return new R<>(true, "success", null);
     }
 
