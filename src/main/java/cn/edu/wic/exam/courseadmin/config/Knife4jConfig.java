@@ -22,7 +22,7 @@ public class Knife4jConfig {
         return new OpenAPI()
                 .info(new Info()
                         // 标题
-                        .title("Knife4j整合Swagger3 Api接口文档")
+                        .title("DBD远程教育-接口文档")
                         // 描述Api接口文档的基本信息
                         .description("Knife4j后端接口服务...")
                         // 版本

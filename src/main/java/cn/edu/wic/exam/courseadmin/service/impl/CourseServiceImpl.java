@@ -23,8 +23,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public IPage<CourseDTO> getPage(Integer current, Integer size) {
-        Page<Course> pageParam = new Page<>(current, size);
-        Page<Course> page = courseMapper.selectPage(pageParam, null);
+        Page<Course> page = courseMapper.selectPage(Page.of(current, size), null);
         return CourseConvert.convertPage(page);
     }
 
