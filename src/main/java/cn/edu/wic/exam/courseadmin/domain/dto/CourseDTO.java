@@ -3,6 +3,8 @@ package cn.edu.wic.exam.courseadmin.domain.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 
 @Data
 @Schema(description = "课程")
@@ -26,6 +28,12 @@ public class CourseDTO {
     @Schema(description = "创建人")
     private String createBy;
 
+    @Schema(description = "创建时间")
+    private LocalDateTime createTime;
+
     @Schema(description = "更新人")
     private String updateBy;
+
+    @Schema(description = "更新时间")
+    private LocalDateTime updateTime;
 }
