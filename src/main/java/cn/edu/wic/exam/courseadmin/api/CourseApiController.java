@@ -25,12 +25,12 @@ public class CourseApiController {
 
     @Operation(summary = "分页获取课程")
     @Parameters({
-        @Parameter(name = "current", description = "从第几页开始", required = true, in = ParameterIn.QUERY),
-        @Parameter(name = "size", description = "一共显示几条数据", required = true, in = ParameterIn.QUERY)
+        @Parameter(name = "page", description = "从第几页开始", required = true, in = ParameterIn.QUERY),
+        @Parameter(name = "limit", description = "一共显示几条数据", required = true, in = ParameterIn.QUERY)
     })
     @GetMapping
-    public JsonResult<IPage<CourseDTO>> getPage(@RequestParam(value = "current", defaultValue = "1") Integer current,
-                                                @RequestParam(value = "size", defaultValue = "20") Integer size) {
-        return JsonResult.success(courseService.getPage(current, size));
+    public JsonResult<IPage<CourseDTO>> getPage(@RequestParam(value = "page", defaultValue = "1") Integer page,
+                                                @RequestParam(value = "limit", defaultValue = "20") Integer limit) {
+        return JsonResult.success(courseService.getPage(page, limit));
     }
 }

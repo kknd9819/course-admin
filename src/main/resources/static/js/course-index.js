@@ -5,27 +5,36 @@ layui.use(['table', 'dropdown'], function(){
     // 创建渲染实例
     table.render({
         elem: '#test',
-        url: '/static/json/2/table/demo1.json', // 此处为静态模拟数据，实际使用时需换成真实接口
+        url:  window.contextPath + 'api/courses', // 此处为静态模拟数据，实际使用时需换成真实接口
         toolbar: '#toolbarDemo',
         defaultToolbar: ['filter', 'exports'],
-        height: 'full-35', // 最大高度减去其他容器已占有的高度差
+        // height: 'full-100', // 最大高度减去其他容器已占有的高度差
         css: [ // 重设当前表格样式
             '.layui-table-tool-temp{padding-right: 145px;}'
         ].join(''),
         cellMinWidth: 80,
         totalRow: true, // 开启合计行
         page: true,
+        loading: true,
+        parseData: function(res) {
+            return {
+                "code": res.succeed ? 0 : 1,
+                "msg": res.msg,
+                "count": res.data.total,
+                "data": res.data.records
+            }
+        },
         cols: [[
             {type: 'checkbox', fixed: 'left'},
-            {field:'id', fixed: 'left', width:80, title: 'ID', sort: true, totalRow: '合计：'},
-            {field:'username', width:80, title: '用户'},
-            {field:'email', title:'邮箱 <i class="layui-icon layui-icon-tips layui-font-14" lay-event="email-tips" title="该字段开启了编辑功能" style="margin-left: 5px;"></i>', fieldTitle: '邮箱', hide: 0, width:150, expandedMode: 'tips', edit: 'text'},
-            {field:'sex', width:80, title: '性别', sort: true},
-            {field:'sign', title: '签名', edit: 'textarea', minWidth: 260, expandedWidth: 260, totalRow: '人物：<span class="layui-badge-rim">唐代：{{= d.TOTAL_ROW.era.tang }} </span> <span class="layui-badge-rim">宋代：{{= d.TOTAL_ROW.era.song }}</span> <span class="layui-badge-rim">现代：{{= d.TOTAL_ROW.era.xian }}</span>'},
-            {field:'experience', width: 100, title: '积分', sort: true, totalRow: '{{= d.TOTAL_NUMS }} 😊'},
-            {field:'checkin', title:'打卡', width: 100, sort: true, totalRow: '{{= parseInt(d.TOTAL_NUMS) }} 次'},
-            {field:'ip', title:'IP', width: 120},
-            {field:'joinTime', title:'加入时间', width: 120},
+            {field:'id', fixed: 'left', width:70, title: 'ID', sort: true, totalRow: '合计：'},
+            {field:'courseName', width:100, title: '课程名称'},
+            {field:'courseDesc', title: '课程描述'},
+            {field:'classHour', width:80, title: '课时', sort: true},
+            {field:'score', title: '学分', width: 80, sort: true},
+            {field:'createBy', width: 100, title: '创建人'},
+            {field:'createTime', title:'创建时间', width: 180},
+            {field:'updateBy', width: 100, title: '更新人'},
+            {field:'updateTime', title:'更新时间', width: 180},
             {fixed: 'right', title:'操作', width: 134, minWidth: 125, templet: '#toolDemo'}
         ]],
         done: function(){

@@ -9,9 +9,9 @@ public interface CourseService {
 
     /**
      * 分页查询课程
-     * @param current 从第几页开始查
-     * @param size 每页查多少条记录
+     * @param page 从第几页开始查
+     * @param limit 每页查多少条记录
      * @return 分页结果
      */
-    IPage<CourseDTO> getPage(Integer current, Integer size);
+    IPage<CourseDTO> getPage(Integer page, Integer limit);
 }

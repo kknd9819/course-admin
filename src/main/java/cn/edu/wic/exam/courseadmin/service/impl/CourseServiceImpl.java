@@ -22,9 +22,9 @@ public class CourseServiceImpl implements CourseService {
     private final CourseMapper courseMapper;
 
     @Override
-    public IPage<CourseDTO> getPage(Integer current, Integer size) {
-        Page<Course> page = courseMapper.selectPage(Page.of(current, size), null);
-        return CourseConvert.convertPage(page);
+    public IPage<CourseDTO> getPage(Integer page, Integer limit) {
+        Page<Course> pageInfo = courseMapper.selectPage(Page.of(page, limit), null);
+        return CourseConvert.convertPage(pageInfo);
     }
 
 }

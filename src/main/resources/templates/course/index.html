@@ -8,6 +8,9 @@
     <title>课程管理</title>
     <link th:href="@{/layui-v2.9.20/layui/css/layui.css}" rel="stylesheet">
     <link rel="shortcut icon" th:href="@{/favicon.ico}">
+    <script th:inline="javascript">
+        window.contextPath = /*[[@{/}]]*/ '';
+    </script>
 </head>
 <body>
 <div class="layui-layout layui-layout-admin">
@@ -65,8 +68,6 @@
         &copy; 2024 Dead by Daylight - All Rights Reserved.
     </div>
 </div>
-
-
 
 <script th:src="@{/layui-v2.9.20/layui/layui.js}"></script>
 <script th:src="@{/js/course-index.js}"></script>
