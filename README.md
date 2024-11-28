@@ -42,7 +42,8 @@ https://czjava.com/course-admin/courses
 
 ## 部署流程
 1. 先执行sql/init-schema.sql，初始化数据库
-2. 编译打包，执行命令 mvn clean package -DskipTests -U
-3. 进入target目录，执行 java -jar course-admin.jar
-4. 访问浏览器， http:localhost:8089/course-admin/courses
+2. 修改application.properties中的数据库配置
+3. 编译打包，执行命令 mvn clean package -DskipTests -U
+4. 进入target目录，执行 java -jar course-admin.jar
+5. 访问浏览器， http:localhost:8089/course-admin/courses
 
