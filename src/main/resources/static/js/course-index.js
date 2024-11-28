@@ -143,7 +143,7 @@ layui.use(['table', 'dropdown', ], function(){
                 title: '编辑 - id:'+ data.id,
                 type: 2,
                 area: ['80%','80%'],
-                content: window.contextPath + 'courses/edit'
+                content: window.contextPath + 'courses/edit/' + data.id
             });
         } else if(obj.event === 'more'){
             // 更多 - 下拉菜单

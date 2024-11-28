@@ -12,8 +12,9 @@
         window.contextPath = /*[[@{/}]]*/ '';
     </script>
 </head>
-<body>
-<form class="layui-form" action="">
+<body v-scope>
+<form class="layui-form" th:action="@{/api/courses}">
+    <input type="hidden" name="id" th:value="${id}">
     <div class="layui-form-item">
         <label class="layui-form-label">课程名称</label>
         <div class="layui-input-block">
@@ -31,11 +32,11 @@
         <div class="layui-inline">
             <label class="layui-form-label">课时：</label>
             <div class="layui-input-inline" style="width: 100px;">
-                <input type="number" name="price_min" placeholder="" autocomplete="off" class="layui-input" min="0" step="1" max="255" lay-affix="number">
+                <input type="number" name="classHour" placeholder="" autocomplete="off" class="layui-input" min="0" step="1" max="255" lay-affix="number">
             </div>
             <div class="layui-form-mid">学分：</div>
             <div class="layui-input-inline" style="width: 100px;">
-                <input type="number" name="price_max" placeholder="" autocomplete="off" class="layui-input" min="0" step="1" max="255" lay-affix="number">
+                <input type="number" name="score" placeholder="" autocomplete="off" class="layui-input" min="0" step="1" max="255" lay-affix="number">
             </div>
         </div>
     </div>
@@ -43,7 +44,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">操作人</label>
         <div class="layui-input-block">
-            <input type="text" name="courseName" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+            <input type="text" name="operator" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
         </div>
     </div>
 
@@ -58,23 +59,63 @@
 <!-- 请勿在项目正式环境中引用该 layui.js 地址 -->
 <script th:src="@{/layui-v2.9.20/layui/layui.js}"></script>
 <script>
-    layui.use(['form', 'laydate', 'util'], function(){
-        var form = layui.form;
-        var layer = layui.layer;
+    document.addEventListener('DOMContentLoaded', function() {
+        layui.use(['form', 'layer', 'jquery'], function(){
+            var form = layui.form;
+            var layer = layui.layer;
+            var $ = layui.$;
 
-        // 提交事件
-        form.on('submit(demo1)', function(data){
-            var field = data.field; // 获取表单字段值
-            // 显示填写结果，仅作演示用
-            layer.alert(JSON.stringify(field), {
-                title: '当前填写的字段值'
+            var id = $("input[name='id']");
+            var courseName = $("input[name='courseName']");
+            var courseDesc = $("input[name='courseDesc']");
+            var classHour = $("input[name='classHour']");
+            var score = $("input[name='score']");
+            var operator = $("input[name='operator']");
+
+            var isUpdate = id.val() !== null && id.val() !== undefined;
+            var url = window.contextPath + 'api/courses';
+
+            if (isUpdate) {
+                $.getJSON(url + "/" + id.val(), function(res) {
+                    courseName.val(res.data.courseName);
+                    courseDesc.val(res.data.courseDesc);
+                    classHour.val(res.data.classHour);
+                    score.val(res.data.score);
+                });
+            }
+
+
+            // 提交事件
+            form.on('submit(demo1)', function(data) {
+                var field = data.field; // 获取表单字段值
+                console.log(field)
+                // 显示填写结果，仅作演示用
+                layer.alert(JSON.stringify(field), {
+                    title: '当前填写的字段值'
+                });
+                // 此处可执行 Ajax 等操作
+                // $.ajax({
+                //     url: url,
+                //     type: isUpdate ? 'PUT' : 'POST',
+                //     contentType: 'application/json',
+                //     dataType: 'json',
+                //     data: JSON.stringify(field),
+                //     success: function(res) {
+                //         if (res.succeed) {
+                //             layer.alert("提交成功");
+                //         } else {
+                //             layer.alert("提交失败");
+                //         }
+                //     },
+                //     error: function(jqXHR, textStatus, errorThrown) {
+                //         console.error('请求失败:', textStatus, errorThrown);
+                //     }
+                });
+                return false; // 阻止默认 form 跳转
             });
-            // 此处可执行 Ajax 等操作
-            // …
-            return false; // 阻止默认 form 跳转
         });
-
     });
+
 </script>
 
 </body>
