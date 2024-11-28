@@ -9,6 +9,9 @@
 - 查看课程
 - 导出csv
 
+## 演示地址
+https://czjava.com/course-admin/courses
+
 ## 项目亮点
 - 自带的API文档，文档地址：https://czjava.com/course-admin/doc.html
 - 严格的restful风格API
@@ -29,6 +32,9 @@
 | 8  | 数据库  | MySQL                          | 8.4            |
 | 7  | 前端框架 | LayUI                          | v2.9.20        |
 
-## 演示地址
-https://czjava.com/course-admin/courses
+## 部署方式
+1. 先执行sql/init-schema.sql，初始化数据库
+2. 编译打包，执行命令 mvn clean package -DskipTests -U
+3. 进入target目录，执行 java -jar course-admin.jar
+4. 访问浏览器， http:localhost:8089/course-admin/courses
 
