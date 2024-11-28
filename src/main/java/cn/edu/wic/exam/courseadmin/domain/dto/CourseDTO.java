@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 import java.time.LocalDateTime;
 
@@ -27,14 +28,12 @@ public class CourseDTO {
     private String courseDesc;
 
     @NotNull(message = "课时不能为空")
-    @Max(value = 255, message = "课程不能大于255")
-    @Min(value = 0, message = "课时不能小于0")
     @Schema(description = "课时")
+    @Range(min = 0, max = 255, message = "课时只能是0-255之间")
     private Integer classHour;
 
     @NotNull(message = "学分不能为空")
-    @Max(value = 255, message = "学分不能大于255")
-    @Min(value = 0, message = "学分不能小于0")
+    @Range(min = 0, max = 255, message = "学分只能是0-255之间")
     @Schema(description = "学分")
     private Integer score;
 
