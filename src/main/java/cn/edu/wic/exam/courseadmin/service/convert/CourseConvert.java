@@ -37,6 +37,20 @@ public class CourseConvert {
         return list;
     }
 
+    public static Course toEntity(CourseDTO dto) {
+        Course entity = new Course();
+        entity.setId(dto.getId());
+        entity.setCourseName(dto.getCourseName());
+        entity.setCourseDesc(dto.getCourseDesc());
+        entity.setClassHour(dto.getClassHour());
+        entity.setScore(dto.getScore());
+        entity.setCreateBy(dto.getCreateBy());
+        entity.setCreateTime(dto.getCreateTime());
+        entity.setUpdateBy(dto.getUpdateBy());
+        entity.setUpdateTime(dto.getUpdateTime());
+        return entity;
+    }
+
     public static Page<CourseDTO> convertPage(IPage<Course> page) {
         if (page == null) {
             return null;

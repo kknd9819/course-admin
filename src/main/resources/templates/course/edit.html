@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>课程添加</title>
+    <link th:href="@{/layui-v2.9.20/layui/css/layui.css}" rel="stylesheet">
+    <link rel="shortcut icon" th:href="@{/favicon.ico}">
+    <script th:inline="javascript">
+        window.contextPath = /*[[@{/}]]*/ '';
+    </script>
+</head>
+<body>
+<form class="layui-form" action="">
+    <div class="layui-form-item">
+        <label class="layui-form-label">课程名称</label>
+        <div class="layui-input-block">
+            <input type="text" name="courseName" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">课程描述</label>
+        <div class="layui-input-block">
+            <input type="text" name="courseDesc" placeholder="请输入" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">课时：</label>
+            <div class="layui-input-inline" style="width: 100px;">
+                <input type="number" name="price_min" placeholder="" autocomplete="off" class="layui-input" min="0" step="1" max="255" lay-affix="number">
+            </div>
+            <div class="layui-form-mid">学分：</div>
+            <div class="layui-input-inline" style="width: 100px;">
+                <input type="number" name="price_max" placeholder="" autocomplete="off" class="layui-input" min="0" step="1" max="255" lay-affix="number">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">操作人</label>
+        <div class="layui-input-block">
+            <input type="text" name="courseName" lay-verify="required" placeholder="请输入" autocomplete="off" class="layui-input">
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button type="submit" class="layui-btn" lay-submit lay-filter="demo1">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+
+<!-- 请勿在项目正式环境中引用该 layui.js 地址 -->
+<script th:src="@{/layui-v2.9.20/layui/layui.js}"></script>
+<script>
+    layui.use(['form', 'laydate', 'util'], function(){
+        var form = layui.form;
+        var layer = layui.layer;
+
+        // 提交事件
+        form.on('submit(demo1)', function(data){
+            var field = data.field; // 获取表单字段值
+            // 显示填写结果，仅作演示用
+            layer.alert(JSON.stringify(field), {
+                title: '当前填写的字段值'
+            });
+            // 此处可执行 Ajax 等操作
+            // …
+            return false; // 阻止默认 form 跳转
+        });
+
+    });
+</script>
+
+</body>
+</html>

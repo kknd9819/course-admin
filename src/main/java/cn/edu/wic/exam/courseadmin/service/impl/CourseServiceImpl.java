@@ -9,6 +9,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,4 +29,33 @@ public class CourseServiceImpl implements CourseService {
         return CourseConvert.convertPage(pageInfo);
     }
 
+    @Override
+    @Cacheable(key = "'by-id:'+ #p0")
+    public CourseDTO getById(Integer id) {
+        Course entity = courseMapper.selectById(id);
+        return CourseConvert.toDto(entity);
+    }
+
+    @Override
+    @CacheEvict(allEntries = true)
+    @Transactional(rollbackFor = Exception.class)
+    public int insert(CourseDTO courseDTO) {
+        Course entity = CourseConvert.toEntity(courseDTO);
+        return courseMapper.insert(entity);
+    }
+
+    @Override
+    @CacheEvict(allEntries = true)
+    @Transactional(rollbackFor = Exception.class)
+    public int updateById(CourseDTO courseDTO) {
+        Course entity = CourseConvert.toEntity(courseDTO);
+        return courseMapper.updateById(entity);
+    }
+
+    @Override
+    @CacheEvict(allEntries = true)
+    @Transactional(rollbackFor = Exception.class)
+    public int deleteById(Integer id) {
+        return courseMapper.deleteById(id);
+    }
 }

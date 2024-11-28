@@ -42,4 +42,8 @@ public class JsonResult<T> implements Serializable {
         return new JsonResult<>(false, msg, null);
     }
 
+    public static <T> JsonResult<T> fail(String msg, T data) {
+        return new JsonResult<>(false, msg, data);
+    }
+
 }

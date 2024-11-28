@@ -1,4 +1,4 @@
-layui.use(['table', 'dropdown'], function(){
+layui.use(['table', 'dropdown', ], function(){
     var table = layui.table;
     var dropdown = layui.dropdown;
 
@@ -26,7 +26,7 @@ layui.use(['table', 'dropdown'], function(){
         },
         cols: [[
             {type: 'checkbox', fixed: 'left'},
-            {field:'id', fixed: 'left', width:70, title: 'ID', sort: true, totalRow: '合计：'},
+            {field:'id', fixed: 'left', width:90, title: 'ID', sort: true, totalRow: '合计：'},
             {field:'courseName', width:100, title: '课程名称'},
             {field:'courseDesc', title: '课程描述'},
             {field:'classHour', width:80, title: '课时', sort: true},
@@ -90,15 +90,6 @@ layui.use(['table', 'dropdown'], function(){
                 data: [{
                     id: 'reload',
                     title: '重载'
-                },{
-                    id: 'reload-deep',
-                    title: '重载 - 参数叠加'
-                },{
-                    id: 'reloadData',
-                    title: '仅重载数据'
-                },{
-                    id: 'reloadData-deep',
-                    title: '仅重载数据 - 参数叠加'
                 }],
                 // 菜单被点击的事件
                 click: function(obj){
@@ -107,90 +98,12 @@ layui.use(['table', 'dropdown'], function(){
                             // 重载 - 默认（参数重置）
                             table.reload('test', {
                                 where: {
-                                    abc: '123456',
-                                    //test: '新的 test2',
-                                    //token: '新的 token2'
+                                    abc: '123456'
                                 },
-                                /*
-                                cols: [[ // 重置表头
-                                  {type: 'checkbox', fixed: 'left'},
-                                  {field:'id', title:'ID', width:80, fixed: 'left', unresize: true, sort: true, totalRow: '合计：'},
-                                  {field:'sex', title:'性别', width:80, edit: 'text', sort: true},
-                                  {field:'experience', title:'积分', width:80, sort: true, totalRow: true, templet: '<div>{{= d.experience }} 分</div>'},
-                                  {field:'logins', title:'登入次数', width:100, sort: true, totalRow: true},
-                                  {field:'joinTime', title:'加入时间', width:120}
-                                ]]
-                                */
                             });
-                            break;
-                        case 'reload-deep':
-                            // 重载 - 深度（参数叠加）
-                            table.reload('test', {
-                                where: {
-                                    abc: 123,
-                                    test: '新的 test1'
-                                },
-                                //defaultToolbar: ['print'], // 重载头部工具栏右侧图标
-                                //cols: ins1.config.cols
-                            }, true);
-                            break;
-                        case 'reloadData':
-                            // 数据重载 - 参数重置
-                            table.reloadData('test', {
-                                where: {
-                                    abc: '123456',
-                                    //test: '新的 test2',
-                                    //token: '新的 token2'
-                                },
-                                scrollPos: 'fixed',  // 保持滚动条位置不变 - v2.7.3 新增
-                                height: 2000, // 测试无效参数（即与数据无关的参数设置无效，此处以 height 设置无效为例）
-                                //url: '404',
-                                //page: {curr: 1, limit: 30} // 重新指向分页
-                            });
-                            break;
-                        case 'reloadData-deep':
-                            // 数据重载 - 参数叠加
-                            table.reloadData('test', {
-                                where: {
-                                    abc: 123,
-                                    test: '新的 test1'
-                                }
-                            }, true);
                             break;
                     }
-                    layer.msg('可观察 Network 请求参数的变化');
-                }
-            });
-
-            // 行模式
-            dropdown.render({
-                elem: '#rowMode',
-                data: [{
-                    id: 'default-row',
-                    title: '单行模式（默认）'
-                },{
-                    id: 'multi-row',
-                    title: '多行模式'
-                }],
-                // 菜单被点击的事件
-                click: function(obj){
-                    var checkStatus = table.checkStatus(id)
-                    var data = checkStatus.data; // 获取选中的数据
-                    switch(obj.id){
-                        case 'default-row':
-                            table.reload('test', {
-                                lineStyle: null // 恢复单行
-                            });
-                            layer.msg('已设为单行');
-                            break;
-                        case 'multi-row':
-                            table.reload('test', {
-                                // 设置行样式，此处以设置多行高度为例。若为单行，则没必要设置改参数 - 注：v2.7.0 新增
-                                lineStyle: 'height: 95px;'
-                            });
-                            layer.msg('即通过设置 lineStyle 参数可开启多行');
-                            break;
-                    }
+                    layer.msg("重载成功");
                 }
             });
         },
@@ -214,18 +127,12 @@ layui.use(['table', 'dropdown'], function(){
                 console.log(getData);
                 layer.alert(layui.util.escape(JSON.stringify(getData)));
                 break;
+            case "reloadData":
+                table.reload('test');
+                break;
         };
     });
-    // 表头自定义元素工具事件 --- 2.8.8+
-    table.on('colTool(test)', function(obj){
-        var event = obj.event;
-        console.log(obj);
-        if(event === 'email-tips'){
-            layer.alert(layui.util.escape(JSON.stringify(obj.col)), {
-                title: '当前列属性配置项'
-            });
-        }
-    });
+
 
     // 触发单元格工具事件
     table.on('tool(test)', function(obj){ // 双击 toolDouble
@@ -234,9 +141,9 @@ layui.use(['table', 'dropdown'], function(){
         if(obj.event === 'edit'){
             layer.open({
                 title: '编辑 - id:'+ data.id,
-                type: 1,
+                type: 2,
                 area: ['80%','80%'],
-                content: '<div style="padding: 16px;">自定义表单元素</div>'
+                content: window.contextPath + 'courses/edit'
             });
         } else if(obj.event === 'more'){
             // 更多 - 下拉菜单

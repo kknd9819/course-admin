@@ -14,4 +14,32 @@ public interface CourseService {
      * @return 分页结果
      */
     IPage<CourseDTO> getPage(Integer page, Integer limit);
+
+    /**
+     * 根据id获取课程
+     * @param id id
+     * @return 课程DTO
+     */
+    CourseDTO getById(Integer id);
+
+    /**
+     * 新增一个课程
+     * @param courseDTO 课程
+     * @return 成功的条数
+     */
+    int insert(CourseDTO courseDTO);
+
+    /**
+     * 更新一个课程
+     * @param courseDTO 课程
+     * @return 成功的条数
+     */
+    int updateById(CourseDTO courseDTO);
+
+    /**
+     * 删除一个课程
+     * @param id id
+     * @return 成功的条数
+     */
+    int deleteById(Integer id);
 }
