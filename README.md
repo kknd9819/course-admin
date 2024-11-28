@@ -10,7 +10,7 @@
 - 导出csv
 
 ## 项目亮点
-- 自带的API文档，文档地址：http://localhost:8080/course-admin/doc.html
+- 自带的API文档，文档地址：https://czjava.com/course-admin/doc.html
 - ![img.png](file/img.png)
 
 ## 所用技术
@@ -27,5 +27,5 @@
 | 7  | 前端框架 | LayUI                          | v2.9.20        |
 
 ## 演示地址
-http://localhost:8080/course-admin/courses
+https://czjava.com/course-admin/courses
 
