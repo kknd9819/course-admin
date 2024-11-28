@@ -88,28 +88,32 @@
             // 提交事件
             form.on('submit(demo1)', function(data) {
                 var field = data.field; // 获取表单字段值
-                console.log(field)
                 // 显示填写结果，仅作演示用
                 layer.alert(JSON.stringify(field), {
                     title: '当前填写的字段值'
                 });
+                if (isUpdate) {
+                    field.updateBy = field.operator;
+                } else {
+                    field.createBy = field.operator;
+                }
                 // 此处可执行 Ajax 等操作
-                // $.ajax({
-                //     url: url,
-                //     type: isUpdate ? 'PUT' : 'POST',
-                //     contentType: 'application/json',
-                //     dataType: 'json',
-                //     data: JSON.stringify(field),
-                //     success: function(res) {
-                //         if (res.succeed) {
-                //             layer.alert("提交成功");
-                //         } else {
-                //             layer.alert("提交失败");
-                //         }
-                //     },
-                //     error: function(jqXHR, textStatus, errorThrown) {
-                //         console.error('请求失败:', textStatus, errorThrown);
-                //     }
+                $.ajax({
+                    url: url,
+                    type: isUpdate ? 'PUT' : 'POST',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    data: JSON.stringify(field),
+                    success: function(res) {
+                        if (res.succeed) {
+                            layer.alert("提交成功");
+                        } else {
+                            layer.alert("提交失败");
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('请求失败:', textStatus, errorThrown);
+                    }
                 });
                 return false; // 阻止默认 form 跳转
             });
