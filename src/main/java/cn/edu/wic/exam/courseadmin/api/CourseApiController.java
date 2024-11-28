@@ -13,8 +13,10 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.groups.Default;
 import lombok.RequiredArgsConstructor;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 
 @Tag(name = "课程API控制器")
 @RestController
@@ -44,14 +46,22 @@ public class CourseApiController {
 
     @Operation(summary = "新增课程")
     @PostMapping
-    public JsonResult<?> save(@Validated({Default.class, InsertAction.class}) @RequestBody CourseDTO courseDTO) {
+    public JsonResult<?> save(@Validated({Default.class, InsertAction.class}) @RequestBody CourseDTO courseDTO,
+                              BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return JsonResult.failWithBindResult(bindingResult);
+        }
         int count = courseService.insert(courseDTO);
         return count > 0 ? JsonResult.success() : JsonResult.fail("新增课程失败");
     }
 
     @Operation(summary = "修改课程")
     @PutMapping
-    public JsonResult<?> update(@Validated({Default.class, UpdateAction.class}) @RequestBody CourseDTO courseDTO) {
+    public JsonResult<?> update(@Validated({Default.class, UpdateAction.class}) @RequestBody CourseDTO courseDTO,
+                                BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return JsonResult.failWithBindResult(bindingResult);
+        }
         int count = courseService.updateById(courseDTO);
         return count > 0 ? JsonResult.success() : JsonResult.fail("修改课程失败");
     }

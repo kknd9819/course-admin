@@ -4,9 +4,14 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -46,4 +51,9 @@ public class JsonResult<T> implements Serializable {
         return new JsonResult<>(false, msg, data);
     }
 
+    public static JsonResult<?> failWithBindResult(BindingResult bindingResult) {
+        List<ObjectError> errorList = bindingResult.getAllErrors();
+        String errors = errorList.stream().map(DefaultMessageSourceResolvable::getDefaultMessage).collect(Collectors.joining(", "));
+        return fail(errors);
+    }
 }

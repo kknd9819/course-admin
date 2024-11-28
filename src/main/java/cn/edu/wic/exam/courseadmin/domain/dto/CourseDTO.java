@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import java.time.LocalDateTime;
 
@@ -22,7 +23,7 @@ public class CourseDTO {
     private String courseName;
 
     @Schema(description = "课程描述")
-    @Size(max = 255, message = "课程描述不能大于255个字")
+    @Length(max = 255, message = "课程描述不能大于255个字")
     private String courseDesc;
 
     @NotNull(message = "课时不能为空")

@@ -1,15 +1,15 @@
-package cn.edu.wic.exam.courseadmin.config;
-
-import cn.edu.wic.exam.courseadmin.util.JsonResult;
-import org.springframework.validation.FieldError;
-import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import java.util.HashMap;
-import java.util.Map;
-
-//@ControllerAdvice
+//package cn.edu.wic.exam.courseadmin.config;
+//
+//import cn.edu.wic.exam.courseadmin.util.JsonResult;
+//import org.springframework.validation.FieldError;
+//import org.springframework.web.bind.MethodArgumentNotValidException;
+//import org.springframework.web.bind.annotation.ExceptionHandler;
+//import org.springframework.web.bind.annotation.RestControllerAdvice;
+//
+//import java.util.HashMap;
+//import java.util.Map;
+//
+//@RestControllerAdvice
 //public class GlobalExceptionHandler {
 //
 //    @ExceptionHandler(MethodArgumentNotValidException.class)
