@@ -19,6 +19,9 @@ https://czjava.com/course-admin/courses
 - 集成本地缓存，多次查询只有第一次访问数据库，减轻数据库压力
 - 很好的职责分离，和包结构管理
 
+## 包结构及模块依赖图
+![img.png](file/depend.png)
+
 ## 所用技术
 | 序号 | 名词   | 技术                             | 版本号            |
 |----|------|--------------------------------|----------------|
@@ -43,5 +46,3 @@ https://czjava.com/course-admin/courses
 3. 进入target目录，执行 java -jar course-admin.jar
 4. 访问浏览器， http:localhost:8089/course-admin/courses
 
-## 包结构
-![img.png](file/depend.png)
