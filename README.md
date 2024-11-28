@@ -32,9 +32,16 @@ https://czjava.com/course-admin/courses
 | 8  | 数据库  | MySQL                          | 8.4            |
 | 7  | 前端框架 | LayUI                          | v2.9.20        |
 
-## 部署方式
+## 部署前置环境准备
+1. jdk21
+2. maven 3.9+
+3. mysql 8+
+
+## 部署流程
 1. 先执行sql/init-schema.sql，初始化数据库
 2. 编译打包，执行命令 mvn clean package -DskipTests -U
 3. 进入target目录，执行 java -jar course-admin.jar
 4. 访问浏览器， http:localhost:8089/course-admin/courses
 
+## 包结构
+![img.png](file/depend.png)
