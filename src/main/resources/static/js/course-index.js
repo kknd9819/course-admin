@@ -1,6 +1,6 @@
-layui.use(['table', 'dropdown', ], function(){
+layui.use(['table','jquery'], function(){
     var table = layui.table;
-    var dropdown = layui.dropdown;
+    var $ = layui.$;
 
     // 创建渲染实例
     table.render({
@@ -49,7 +49,7 @@ layui.use(['table', 'dropdown', ], function(){
     table.on('toolbar(test)', function(obj){
         var id = obj.config.id;
         var checkStatus = table.checkStatus(id);
-        switch(obj.event){
+        switch(obj.event) {
             case 'addCourse':
                 layer.open({
                     title: '新增课程',
@@ -58,14 +58,10 @@ layui.use(['table', 'dropdown', ], function(){
                     content: window.contextPath + 'courses/add'
                 });
                 break;
-            case 'getCheckData':
-                var data = checkStatus.data;
-                layer.alert(layui.util.escape(JSON.stringify(data)));
-                break;
             case "reloadData":
                 table.reload('test');
                 break;
-        };
+        }
     });
 
 
@@ -80,39 +76,31 @@ layui.use(['table', 'dropdown', ], function(){
                 area: ['80%','80%'],
                 content: window.contextPath + 'courses/edit/' + data.id
             });
-        } else if(obj.event === 'more'){
-            // 更多 - 下拉菜单
-            dropdown.render({
-                elem: this, // 触发事件的 DOM 对象
-                show: true, // 外部事件触发即显示
-                data: [{
-                    title: '查看',
-                    id: 'detail'
-                },{
-                    title: '删除',
-                    id: 'del'
-                }],
-                click: function(menudata){
-                    if(menudata.id === 'detail'){
-                        layer.msg('查看操作，当前行 ID:'+ data.id);
-                    } else if(menudata.id === 'del'){
-                        layer.confirm('真的删除行 [id: '+ data.id +'] 么', function(index){
-                            obj.del(); // 删除对应行（tr）的DOM结构
-                            layer.close(index);
-                            // 向服务端发送删除指令
-                        });
+        } else if(obj.event === 'delete'){
+            layer.confirm('真的删除行 [id: '+ data.id +'] 么', function(index){
+                // obj.del(); // 删除对应行（tr）的DOM结构
+                // 向服务器发送删除请求
+                $.ajax({
+                    url: window.contextPath + 'api/courses/' + data.id,
+                    type: 'DELETE',
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function(res) {
+                        if (res.succeed) {
+                            var index = layer.alert("删除成功", function () {
+                                table.reload('test');
+                                layer.close(index);
+                            });
+                        } else {
+                            layer.alert(res.msg);
+                        }
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error('请求失败:', textStatus, errorThrown);
                     }
-                },
-                id: 'dropdown-table-tool',
-                align: 'right', // 右对齐弹出
-                style: 'box-shadow: 1px 1px 10px rgb(0 0 0 / 12%);' // 设置额外样式
+                });
             });
         }
-    });
-    // table 滚动时移除内部弹出的元素
-    var tableInst = table.getOptions('test');
-    tableInst.elem.next().find('.layui-table-main').on('scroll', function() {
-        dropdown.close('dropdown-table-tool');
     });
 
 });

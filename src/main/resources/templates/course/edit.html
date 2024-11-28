@@ -108,7 +108,7 @@
                                 parent.layui.table.reload('test');//重载父页表格，参数为表格ID
                             });
                         } else {
-                            layer.alert("提交失败");
+                            layer.alert(res.msg);
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {
