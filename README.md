@@ -11,7 +11,12 @@
 
 ## 项目亮点
 - 自带的API文档，文档地址：https://czjava.com/course-admin/doc.html
-- ![img.png](file/img.png)
+![img.png](file/img.png)
+
+- 严格的restful风格API
+- 严格的后端数据验证
+- 集成本地缓存，多次查询只有第一次访问数据库
+- 很好的职责分离，和包结构管理
 
 ## 所用技术
 | 序号 | 名词   | 技术                             | 版本号            |
