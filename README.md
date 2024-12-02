@@ -13,13 +13,14 @@
 https://czjava.com/course-admin/courses
 
 ## 项目亮点
-- 自带的API文档，文档地址：https://czjava.com/course-admin/doc.html
 - 严格的restful风格API
 - 严格的后端数据验证，保障数据安全
 - 集成本地缓存，多次查询只有第一次访问数据库，减轻数据库压力
 - 很好的职责分离，和包结构管理
 
 ## 包结构及模块依赖图
+- 如果图挂了，请开VPN后再刷新页面
+
 ![img.png](file/depend.png)
 
 ## 所用技术
